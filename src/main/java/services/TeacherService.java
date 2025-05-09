@@ -32,7 +32,6 @@ public class TeacherService {
                     existingTeacher.setName(updatedTeacher.getName());
                     existingTeacher.setEmail(updatedTeacher.getEmail());
                     existingTeacher.setPassword(updatedTeacher.getPassword());
-                    // Actualiza otros campos según sea necesario
                     return teacherRepository.save(existingTeacher);
                 })
                 .orElseThrow(() -> new RuntimeException("Teacher not found with id: " + id));
