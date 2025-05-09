@@ -1,4 +1,4 @@
-package services;
+package Service;
 
 import entity.Teacher;
 import lombok.RequiredArgsConstructor;
