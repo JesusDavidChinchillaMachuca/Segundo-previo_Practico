@@ -1,81 +1,95 @@
-# Segundo Previo - Plataforma Académica (API REST)
+📚 Segundo Previo - Plataforma Académica (API REST)
+Estudiantes:
 
-**Estudiante:** Jesus David Chinchilla Machuca y Sofia Suárez Angarita
-**Código:** 1152177  y 1152144
-**Repositorio GitHub:** [segundo-previo-practico](https://github.com/JesusDavidChinchillaMachuca9/segundo-previo_practico)
+Jesús David Chinchilla Machuca - Código: 1152177
 
-## Descripción del Proyecto
+Sofía Suárez Angarita - Código: 1152144
 
-Este proyecto consiste en el diseño e implementación de una **API REST robusta** para una plataforma académica, desarrollada utilizando **Spring Boot** y **Lombok**. Su propósito es gestionar usuarios, asignaturas, horarios, evaluaciones y disponibilidad de docentes, permitiendo una planificación eficiente de clases y evitando conflictos de horario.
+Repositorio GitHub:
+segundo-previo-practico
 
-## Funcionalidades Principales
+📌 Descripción del Proyecto
+Este proyecto consiste en el diseño e implementación de una API REST robusta para la gestión de una plataforma académica, desarrollada con Spring Boot y Lombok. El sistema permite gestionar usuarios, asignaturas, evaluaciones, horarios y disponibilidad docente, optimizando así la planificación de clases y evitando conflictos de horario.
 
-- Gestión de usuarios con roles diferenciados (ADMIN, TEACHER, STUDENT).
-- Gestión de asignaturas, evaluaciones y horarios.
-- Control de disponibilidad e indisponibilidad de docentes.
-- Planificación de clases y verificación de conflictos de horario.
-- Reportes académicos por estudiante y asignatura.
-- Historial de calificaciones y auditoría de acciones.
+🚀 Funcionalidades Principales
+Gestión de usuarios con roles diferenciados: ADMIN, TEACHER y STUDENT.
 
-## Arquitectura del Proyecto
+Administración de asignaturas, evaluaciones y horarios.
 
-- **Controller:** Define los endpoints RESTful.
-- **Service:** Contiene la lógica de negocio.
-- **Repository:** Gestiona la persistencia con JPA (extiende de `JpaRepository`).
-- **Model:** Define las entidades del dominio con anotaciones JPA.
+Control de disponibilidad e indisponibilidad de docentes.
 
-## Tecnologías Usadas
+Planificación académica con validación de conflictos de horario.
 
-- Java 17+
-- Spring Boot
-- Spring Data JPA
-- Lombok
-- H2 / PostgreSQL (según configuración)
-- Maven
-- Git y GitHub
+Generación de reportes académicos por estudiante y asignatura.
 
-## Estructura de Entidades (Modelo de Datos)
+Historial de calificaciones y auditoría de acciones realizadas.
 
-- **User:** Base para ADMIN, TEACHER, STUDENT.
-- **Student:** Lista de asignaturas inscritas.
-- **Teacher:** Horarios disponibles e indisponibles, asignaturas.
-- **Subject:** Docente asignado, estudiantes, evaluaciones.
-- **SubjectEnrollment:** Relación estudiante-asignatura.
-- **Evaluation:** Trabajo, parcial o prueba.
-- **Schedules:** Horarios por docente o asignatura.
+🏗️ Arquitectura del Proyecto
+Controller: Define los endpoints RESTful.
 
-## Endpoints Clave
+Service: Contiene la lógica de negocio.
 
-- `/teachers/schedule`: Consultar, actualizar, eliminar disponibilidad.
-- `/teachers/unavailable`: Agregar, consultar o eliminar indisponibilidad.
-- `/subjects/schedule`: Asignar o modificar horarios de clases.
-- `/reports/student`: Reporte académico consolidado.
-- `/reports/subject`: Análisis de desempeño por asignatura.
-- `/grades/history`: Historial de modificaciones en calificaciones.
-- `/evaluations/search`: Búsqueda avanzada de evaluaciones.
-- `/audit`: Trazabilidad de acciones de usuario.
-- `/availability`: Reporte consolidado de disponibilidad docente.
+Repository: Maneja la persistencia utilizando Spring Data JPA.
 
-## GitHub y Control de Versiones
+Model: Define las entidades del dominio con anotaciones JPA.
 
-- Flujo de trabajo con ramas: `main`, `develop`, `feature-*`.
-- Commits documentados con mensajes descriptivos.
-- Archivo `README.md` con instrucciones del proyecto.
-- Proyecto privado compartido con el instructor.
+🧰 Tecnologías Utilizadas
+Java 17+
 
-## Criterios de Evaluación
+Spring Boot
 
-| Criterio                          | Descripción                                                  | Ponderación |
-|----------------------------------|--------------------------------------------------------------|-------------|
-| **Funcionalidad**                | Cumple con todos los requerimientos especificados            | 50%         |
-| **Estructura y Organización**    | Arquitectura en capas y buenas prácticas                     | 10%         |
-| **Uso de POO**                   | Encapsulamiento, herencia, polimorfismo                      | 10%         |
-| **Persistencia de Datos**        | JPA y base de datos relacional                               | 10%         |
-| **Uso de GitHub**                | Flujo en ramas, commits claros, documentación                | 5%          |
-| **Validaciones y Manejo de Errores** | Validaciones y gestión de excepciones                      | 15%         |
+Spring Data JPA
 
-## Instrucciones para Ejecutar el Proyecto
+Lombok
 
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/JesusDavidChinchillaMachuca9/segundo-previo_practico.git
+H2 / PostgreSQL (configurable)
+
+Maven
+
+Git & GitHub
+
+🗃️ Modelo de Datos (Entidades Principales)
+Entidad	Descripción
+User	Entidad base abstracta para Admin, Teacher y Student. Contiene campos comunes como nombre, correo y rol.
+Admin	Hereda de User. Representa a los administradores del sistema con privilegios globales.
+Teacher	Hereda de User. Puede registrar su disponibilidad, asignarse asignaturas y gestionar evaluaciones.
+Student	Hereda de User. Se inscribe en asignaturas y visualiza calificaciones y reportes académicos.
+Subject	Representa una asignatura. Tiene asociado un docente, estudiantes inscritos y evaluaciones programadas.
+SubjectEnrollment	Relación entre Student y Subject. Registra las asignaturas inscritas por un estudiante.
+Schedule	Representa un horario (día y hora) asignado a una asignatura o disponibilidad docente.
+Evaluation	Evaluación académica que puede ser de tipo trabajo, parcial o prueba. Está asociada a una asignatura.
+Grade	Calificación obtenida por un estudiante en una evaluación. Incluye valor numérico y fecha de modificación.
+AuditLog	Registro de acciones realizadas en el sistema (modificaciones, accesos, etc.). Útil para trazabilidad.
+Availability	Registro de horarios disponibles por parte de un docente. Utilizado para planificar clases.
+Unavailability	Registro de indisponibilidades (ausencias, permisos, etc.) declaradas por un docente.
+Report	Entidad que consolida información académica (rendimiento por estudiante o por asignatura).
+
+🔗 Endpoints Clave
+Endpoint	Descripción
+/teachers/schedule	Consultar, actualizar o eliminar disponibilidad docente.
+/teachers/unavailable	Gestionar indisponibilidades.
+/subjects/schedule	Asignar o modificar horarios de clase.
+/reports/student	Generar reporte académico consolidado.
+/reports/subject	Analizar rendimiento por asignatura.
+/grades/history	Historial de modificaciones en notas.
+/evaluations/search	Búsqueda avanzada de evaluaciones.
+/audit	Registro de acciones del sistema.
+/availability	Consulta de disponibilidad consolidada de docentes.
+
+📁 GitHub y Control de Versiones
+Flujo de trabajo con ramas: main, develop, feature-*.
+
+Commits documentados con mensajes descriptivos.
+
+Proyecto privado y compartido con el instructor.
+
+Archivo README.md con instrucciones completas.
+
+📊 Criterios de Evaluación
+Criterio	Descripción	Peso
+Funcionalidad	Cumplimiento total de requerimientos	50%
+Estructura y Organización	Arquitectura en capas, buenas prácticas	10%
+Uso de POO	Encapsulamiento, herencia, polimorfismo	10%
+Persistencia de Datos	Uso de JPA y bases de datos relacionales	10%
+Uso de GitHub	Flujo de ramas, commits claros, documentación	5%
+Validaciones y Errores	Manejo de errores y validaciones robustas	15%
