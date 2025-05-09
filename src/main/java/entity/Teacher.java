@@ -1,25 +1,63 @@
 package entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "teachers")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@Entity
+@Table(name = "teachers")
+@PrimaryKeyJoinColumn(name = "user_id")
 public class Teacher extends User {
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TeacherSchedule> availableSchedules;
+    @OneToMany(
+            mappedBy = "teacher",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<TeacherSchedule> availableSchedules = new ArrayList<>();
 
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UnavailableTime> unavailableTimes;
+    @OneToMany(
+            mappedBy = "teacher",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<UnavailableTime> unavailableTimes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Subject> subjects;
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST)
+    private List<Subject> subjects = new ArrayList<>();
+
+    public void addAvailableSchedule(TeacherSchedule schedule) {
+        availableSchedules.add(schedule);
+        schedule.setTeacher(this);
+    }
+
+    public void removeAvailableSchedule(TeacherSchedule schedule) {
+        availableSchedules.remove(schedule);
+        schedule.setTeacher(null);
+    }
+
+    public void addUnavailableTime(UnavailableTime unavailableTime) {
+        unavailableTimes.add(unavailableTime);
+        unavailableTime.setTeacher(this);
+    }
+
+    public void removeUnavailableTime(UnavailableTime unavailableTime) {
+        unavailableTimes.remove(unavailableTime);
+        unavailableTime.setTeacher(null);
+    }
+
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
+        subject.setTeacher(this);
+    }
+
+    public void removeSubject(Subject subject) {
+        subjects.remove(subject);
+        subject.setTeacher(null);
+    }
 }
